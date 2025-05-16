@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import type React from "react"
 import { MobileMenu } from "./mobile-menu"
 
@@ -27,42 +28,14 @@ export default function Navbar() {
         className="flex items-center justify-between px-6 py-4 backdrop-blur-sm border-b border-white/10"
       >
         <Link href="/" className="flex items-center space-x-2">
-          <div className="relative w-8 h-8">
-            <svg viewBox="0 0 100 120" className="w-full h-full">
-              {/* Outer Shield */}
-              <path
-                d="M50 10 L90 30 L90 70 C90 90 70 110 50 110 C30 110 10 90 10 70 L10 30 Z"
-                fill="none"
-                stroke="#FF6B00"
-                strokeWidth="3"
-              />
-
-              {/* Inner Shield */}
-              <path
-                d="M50 20 L80 35 L80 65 C80 80 65 95 50 95 C35 95 20 80 20 65 L20 35 Z"
-                fill="none"
-                stroke="#FF6B00"
-                strokeWidth="2"
-              />
-
-              {/* Code brackets */}
-              <path
-                d="M35 40 L25 50 L35 60 M65 40 L75 50 L65 60"
-                fill="none"
-                stroke="#FF6B00"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-
-              {/* Code lines */}
-              <path
-                d="M40 70 L60 70 M35 80 L65 80 M40 90 L60 90"
-                fill="none"
-                stroke="#FF6B00"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-            </svg>
+          <div className="relative w-10 h-10">
+            <Image
+              src="/logo.png"
+              alt="Technologistics logo"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
           <span className="text-white font-medium text-xl">Technologistics</span>
         </Link>
