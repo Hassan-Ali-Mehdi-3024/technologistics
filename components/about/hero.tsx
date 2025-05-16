@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { TechIllustration } from "./tech-illustration"
-import { AnimatedLogo } from "./animated-logo"
+import AnimatedLogo from "./animated-logo"
 import { StarField } from "./star-field"
 
 export default function AboutHero() {

@@ -1,5 +1,5 @@
 "use client"
-import { AnimatedLogo } from "@/components/animated-logo"
+import AnimatedLogo from "@/components/animated-logo"
 import { ServiceCard } from "@/components/service-card"
 import { TechCircuit } from "@/components/tech-circuit"
 import { StarField } from "@/components/star-field"

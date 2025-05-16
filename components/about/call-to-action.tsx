@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function CallToAction() {
   return (
@@ -78,29 +79,18 @@ export default function CallToAction() {
           <p className="text-lg opacity-90 mb-8">
             We're always looking for new opportunities and partnerships. Let's create something amazing together.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white relative overflow-hidden group">
-              <span className="relative z-10">Contact Us</span>
-              <motion.div
-                className="absolute inset-0 bg-orange-400"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-white border-white hover:bg-orange-700/30 relative overflow-hidden group"
-            >
-              <span className="relative z-10">Learn More</span>
-              <motion.div
-                className="absolute inset-0 bg-white/10"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </Button>
+          <div className="flex justify-center">
+            <Link href="/contact">
+              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white relative overflow-hidden group">
+                <span className="relative z-10">Contact Us</span>
+                <motion.div
+                  className="absolute inset-0 bg-orange-400"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </Button>
+            </Link>
           </div>
         </motion.div>
       </div>
