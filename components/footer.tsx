@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
 import { Facebook, Instagram, Linkedin, ExternalLink } from "lucide-react"
+import { DiscordIcon } from "@/components/icons/discord-icon"
 
 export default function Footer() {
   return (
@@ -106,6 +107,14 @@ export default function Footer() {
               >
                 <Linkedin className="w-5 h-5" />
               </motion.a>
+               <motion.a
+          href="#"
+          className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-orange-500 transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <DiscordIcon className="w-5 h-5" />
+        </motion.a>
             </div>
           </div>
         </div>

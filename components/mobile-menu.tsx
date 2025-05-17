@@ -1,11 +1,10 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useEffect } from "react"
+import { X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { X } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -14,6 +13,8 @@ interface MobileMenuProps {
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const [mounted, setMounted] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
 
   useEffect(() => {
     setMounted(true)
@@ -22,10 +23,17 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const scrollToServices = (e: React.MouseEvent) => {
     e.preventDefault()
     onClose()
+    
     setTimeout(() => {
-      const servicesSection = document.getElementById("custom-solutions")
-      if (servicesSection) {
-        servicesSection.scrollIntoView({ behavior: "smooth" })
+      if (pathname === "/" || pathname === "") {
+        // Already on home page, just scroll
+        const servicesSection = document.getElementById("custom-solutions")
+        if (servicesSection) {
+          servicesSection.scrollIntoView({ behavior: "smooth" })
+        }
+      } else {
+        // On another page, navigate to home with hash
+        router.push("/#custom-solutions")
       }
     }, 300)
   }
@@ -86,7 +94,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
                 <a
-                  href="#custom-solutions"
+                  href="/#custom-solutions"
                   className="text-2xl font-bold text-white hover:text-orange-500 transition-colors relative group"
                   onClick={scrollToServices}
                 >
@@ -126,23 +134,20 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-md font-medium transition-colors"
                 onClick={onClose}
               >
-                Book Now
+                Contact Us
               </Link>
             </motion.div>
           </div>
 
           {/* Tech circuit decoration */}
           <div className="absolute bottom-0 left-0 w-full h-32 overflow-hidden opacity-20">
-            <svg width="100%" height="100%" viewBox="0 0 1000 100" preserveAspectRatio="none">
-              <motion.path
+            <svg viewBox="0 0 1000 100" className="w-full h-full">
+              <path
                 d="M0,50 Q250,0 500,50 T1000,50"
-                fill="none"
                 stroke="#FF6B00"
                 strokeWidth="1"
+                fill="none"
                 strokeDasharray="5,5"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 2 }}
               />
             </svg>
           </div>

@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Monitor, Cpu, Smartphone, Database, Code, Brain } from "lucide-react"
 import { motion } from "framer-motion"
+import { TestimonialCarousel } from "@/components/testimonial-slider"
+import { FaqSection } from "@/components/faq-accordion"
 
 export default function Home() {
   const services = [
@@ -141,6 +143,20 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Testimonials Section */}
+        <section className="py-16 relative">
+          <div className="container mx-auto px-6">
+            <div className="flex items-center mb-8">
+              <div className="h-0.5 w-12 bg-orange-500 mr-4"></div>
+              <h2 className="text-2xl font-bold text-white">
+                Client <span className="text-orange-500">Testimonials</span>
+              </h2>
+            </div>
+
+            <TestimonialCarousel />
+          </div>
+        </section>
+
         {/* Why Technologistics Section */}
         <section className="py-16 relative">
           <div className="container mx-auto px-6">
@@ -187,6 +203,21 @@ export default function Home() {
                 </li>
               </ul>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-16 relative">
+          <div className="container mx-auto px-6">
+            <div className="flex items-center justify-center mb-12">
+              <div className="h-0.5 w-12 bg-orange-500 mr-4"></div>
+              <h2 className="text-2xl font-bold text-white">
+                Frequently <span className="text-orange-500">Asked Questions</span>
+              </h2>
+              <div className="h-0.5 w-12 bg-orange-500 ml-4"></div>
+            </div>
+
+            <FaqSection />
           </div>
         </section>
 

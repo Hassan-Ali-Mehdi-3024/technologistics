@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
 import { motion } from "framer-motion"
@@ -8,15 +8,25 @@ import Link from "next/link"
 import Image from "next/image"
 import type React from "react"
 import { MobileMenu } from "./mobile-menu"
+import { useRouter, usePathname } from "next/navigation"
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
 
   const scrollToServices = (e: React.MouseEvent) => {
     e.preventDefault()
-    const servicesSection = document.getElementById("custom-solutions")
-    if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: "smooth" })
+    
+    if (pathname === "/" || pathname === "") {
+      // Already on home page, just scroll
+      const servicesSection = document.getElementById("custom-solutions")
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ behavior: "smooth" })
+      }
+    } else {
+      // On another page, navigate to home with hash
+      router.push("/#custom-solutions")
     }
   }
 
@@ -44,7 +54,7 @@ export default function Navbar() {
           <NavLink href="/">Home</NavLink>
           <NavLink href="/about">About Us</NavLink>
           <a
-            href="#custom-solutions"
+            href="/#custom-solutions"
             onClick={scrollToServices}
             className="text-gray-300 hover:text-white transition-colors relative group"
           >
@@ -55,7 +65,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center">
           <Link href="/contact">
-            <Button className="bg-orange-600 hover:bg-orange-700 text-white">Book Now</Button>
+            <Button className="bg-orange-600 hover:bg-orange-700 text-white">Contact Us</Button>
           </Link>
         </div>
 

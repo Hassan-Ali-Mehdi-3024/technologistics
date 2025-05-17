@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, CheckCircle, Cpu, Globe, Smartphone, Database, Code } from "lucide-react"
+import { X, CheckCircle, Cpu, Globe, Smartphone, Database, Code, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface ServiceBookingModalProps {
@@ -16,6 +16,7 @@ export function ServiceBookingModal({ isOpen, onClose }: ServiceBookingModalProp
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
+    phone: "",
     company: "",
     service: "web-development",
     projectDescription: "",
@@ -32,6 +33,7 @@ export function ServiceBookingModal({ isOpen, onClose }: ServiceBookingModalProp
       setFormData({
         fullName: "",
         email: "",
+        phone: "",
         company: "",
         service: "web-development",
         projectDescription: "",
@@ -69,6 +71,11 @@ export function ServiceBookingModal({ isOpen, onClose }: ServiceBookingModalProp
       newErrors.email = "Email is invalid"
     }
 
+    // Validate phone if contact method is call or whatsapp
+    if ((formData.contactMethod === "call" || formData.contactMethod === "whatsapp") && !formData.phone.trim()) {
+      newErrors.phone = "Phone number is required for this contact method"
+    }
+
     if (!formData.projectDescription.trim()) {
       newErrors.projectDescription = "Project description is required"
     }
@@ -77,21 +84,51 @@ export function ServiceBookingModal({ isOpen, onClose }: ServiceBookingModalProp
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
 
-    if (!validateForm()) {
-      return
+  if (!validateForm()) {
+    return
+  }
+
+  setIsSubmitting(true)
+
+  try {
+    const response = await fetch('/api/service-booking', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to submit form');
     }
 
-    setIsSubmitting(true)
-
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Form submitted:", formData)
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-    }, 1500)
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    setIsSubmitting(false);
+    
+    // Show actual error message instead of generic alert
+    const errorMessage = error instanceof Error ? error.message : 'Failed to submit form. Please try again later.';
+    alert(errorMessage);
+  }
+}
+  const getServiceLabel = (serviceKey: string): string => {
+    const services: Record<string, string> = {
+      "ai-agents": "AI Agents Development",
+      "web-development": "Web Development",
+      "mobile-app": "Mobile App Development",
+      "ml-data-science": "ML/Data Science",
+      "custom-solution": "Custom Solution"
+    };
+    
+    return services[serviceKey] || serviceKey;
   }
 
   const getServiceIcon = () => {
@@ -110,6 +147,8 @@ export function ServiceBookingModal({ isOpen, onClose }: ServiceBookingModalProp
         return <Code className="w-6 h-6 text-orange-500" />
     }
   }
+
+  const needsPhoneNumber = formData.contactMethod === "call" || formData.contactMethod === "whatsapp";
 
   return (
     <AnimatePresence>
@@ -250,25 +289,6 @@ export function ServiceBookingModal({ isOpen, onClose }: ServiceBookingModalProp
                     </div>
 
                     <div>
-                      <label htmlFor="projectDescription" className="block text-sm font-medium text-gray-300 mb-1">
-                        Brief About Your Project <span className="text-orange-500">*</span>
-                      </label>
-                      <textarea
-                        id="projectDescription"
-                        name="projectDescription"
-                        value={formData.projectDescription}
-                        onChange={handleChange}
-                        rows={4}
-                        className={`w-full px-4 py-2 bg-gray-900/50 border ${
-                          errors.projectDescription ? "border-red-500" : "border-gray-700"
-                        } rounded-md text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50`}
-                      ></textarea>
-                      {errors.projectDescription && (
-                        <p className="mt-1 text-sm text-red-500">{errors.projectDescription}</p>
-                      )}
-                    </div>
-
-                    <div>
                       <p className="block text-sm font-medium text-gray-300 mb-3">
                         Preferred Contact Method <span className="text-orange-500">*</span>
                       </p>
@@ -287,6 +307,58 @@ export function ServiceBookingModal({ isOpen, onClose }: ServiceBookingModalProp
                           </label>
                         ))}
                       </div>
+                    </div>
+
+                    {/* Conditionally show phone field */}
+                    <AnimatePresence>
+                      {needsPhoneNumber && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <div className="py-2">
+                            <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-1">
+                              Phone Number <span className="text-orange-500">*</span>
+                            </label>
+                            <div className="flex items-center">
+                              <Phone className="w-5 h-5 mr-2 text-orange-500" />
+                              <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                placeholder={formData.contactMethod === "whatsapp" ? "WhatsApp number" : "Phone number"}
+                                className={`w-full px-4 py-2 bg-gray-900/50 border ${
+                                  errors.phone ? "border-red-500" : "border-gray-700"
+                                } rounded-md text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50`}
+                              />
+                            </div>
+                            {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    <div>
+                      <label htmlFor="projectDescription" className="block text-sm font-medium text-gray-300 mb-1">
+                        Brief About Your Project <span className="text-orange-500">*</span>
+                      </label>
+                      <textarea
+                        id="projectDescription"
+                        name="projectDescription"
+                        value={formData.projectDescription}
+                        onChange={handleChange}
+                        rows={4}
+                        className={`w-full px-4 py-2 bg-gray-900/50 border ${
+                          errors.projectDescription ? "border-red-500" : "border-gray-700"
+                        } rounded-md text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50`}
+                      ></textarea>
+                      {errors.projectDescription && (
+                        <p className="mt-1 text-sm text-red-500">{errors.projectDescription}</p>
+                      )}
                     </div>
 
                     <div className="flex justify-end">

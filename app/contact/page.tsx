@@ -11,7 +11,8 @@ import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin, MessageSquare } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin } from "lucide-react"
+import { DiscordIcon } from "@/components/icons/discord-icon"
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
@@ -24,18 +25,36 @@ export default function ContactPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormState((prev) => ({ ...prev, [name]: value }))
+    // Clear any error when user starts typing again
+    if (errorMessage) setErrorMessage(null)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setErrorMessage(null)
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      // Success handling
       setIsSubmitting(false)
       setIsSubmitted(true)
       setFormState({
@@ -50,7 +69,11 @@ export default function ContactPage() {
       setTimeout(() => {
         setIsSubmitted(false)
       }, 5000)
-    }, 1500)
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setIsSubmitting(false)
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to send message. Please try again later.')
+    }
   }
 
   return (
@@ -107,6 +130,12 @@ export default function ContactPage() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {errorMessage && (
+                      <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-3 text-red-200 text-sm">
+                        {errorMessage}
+                      </div>
+                    )}
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
@@ -292,7 +321,7 @@ export default function ContactPage() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        <MessageSquare className="w-5 h-5 text-white" />
+                        <DiscordIcon className="w-5 h-5 text-white" />
                       </motion.a>
                       <motion.a
                         href="#"
