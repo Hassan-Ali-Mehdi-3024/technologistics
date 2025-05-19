@@ -44,17 +44,17 @@ export default function OurStory() {
             <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md aspect-[4/3] rounded-xl overflow-hidden shadow-lg border border-orange-500/20">
               <div className="absolute inset-0 bg-gradient-to-tr from-orange-600/20 to-transparent z-10" />
               <Image
-                src="/placeholder.svg?height=800&width=1200&text=Our+Story"
+                src="/our-story/image.jpg"
                 alt="Our company story"
                 fill
                 className="object-cover"
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              {/* Tech overlay */}
+              {/* Tech overlay
               <div className="absolute inset-0 bg-black/30 z-20 flex items-end">
                 <CodeSnippet />
-              </div>
+              </div> */}
             </div>
           </motion.div>
 
@@ -67,14 +67,14 @@ export default function OurStory() {
           >
             <h2 className="text-3xl font-bold text-white mb-6">Our Story</h2>
             <p className="text-lg text-gray-300 leading-relaxed mb-4">
-              Founded in 2015, our company began with a simple mission: to create solutions that make a difference. What
-              started as a small team of three in a garage has grown into a thriving organization with offices across
-              the country.
+             Founded in 2023, we’re a startup driven by one clear mission: to harness the power of artificial intelligence to solve real-world problems. What started as a small group of tech enthusiasts with a shared vision has grown into a focused team working at the intersection of innovation and impact.
             </p>
             <p className="text-lg text-gray-300 leading-relaxed">
-              Through the years, we've remained committed to our core values of innovation, integrity, and customer
-              satisfaction. Our journey has been defined by continuous learning, adaptation, and a relentless pursuit of
-              excellence.
+              We’re not here to chase hype—we’re here to build AI solutions that are practical, ethical, and scalable. From day one, we’ve been committed to exploring how AI can empower businesses, streamline workflows, and unlock new opportunities across industries.
+            </p>
+            <br />
+            <p className="text-lg text-gray-300 leading-relaxed">
+              As a young company, we know the journey ahead is long—but that’s exactly what excites us. Every prototype, every line of code, and every conversation with our users helps us shape smarter, more responsible technology.
             </p>
 
             {/* Animated underline */}

@@ -273,7 +273,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="text-lg font-medium text-white">Email</h3>
-                        <p className="text-white/80">support@technologistics.io</p>
+                        <p className="text-white/80">hassanalimehdi3024@gmail.com</p>
                       </div>
                     </div>
 
@@ -283,7 +283,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="text-lg font-medium text-white">Phone</h3>
-                        <p className="text-white/80">+1 (555) 123-4567</p>
+                        <p className="text-white/80">+923274320706</p>
                       </div>
                     </div>
 
@@ -294,11 +294,11 @@ export default function ContactPage() {
                       <div>
                         <h3 className="text-lg font-medium text-white">Office</h3>
                         <p className="text-white/80">
-                          123 Tech Boulevard
-                          <br />
+                          Not available yet
+                          {/* <br />
                           Innovation District
                           <br />
-                          San Francisco, CA 94103
+                          San Francisco, CA 94103 */}
                         </p>
                       </div>
                     </div>
@@ -308,34 +308,42 @@ export default function ContactPage() {
                     <h3 className="text-lg font-medium text-white mb-4">Follow Us</h3>
                     <div className="flex space-x-4">
                       <motion.a
-                        href="#"
+                        href="https://www.facebook.com/profile.php?id=61551446451706"
                         className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        target="_blank"
+  rel="noopener noreferrer"
                       >
                         <Facebook className="w-5 h-5 text-white" />
                       </motion.a>
                       <motion.a
-                        href="#"
+                        href="https://discord.gg/nWRt7NszDC"
                         className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
                         <DiscordIcon className="w-5 h-5 text-white" />
                       </motion.a>
                       <motion.a
-                        href="#"
+                        href="https://www.instagram.com/technologistics.pk/"
                         className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
                         <Instagram className="w-5 h-5 text-white" />
                       </motion.a>
                       <motion.a
-                        href="#"
+                        href="https://www.linkedin.com/company/technologistics-pk"
                         className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
                         <Linkedin className="w-5 h-5 text-white" />
                       </motion.a>

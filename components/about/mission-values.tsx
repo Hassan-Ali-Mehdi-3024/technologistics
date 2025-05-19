@@ -8,19 +8,19 @@ export default function MissionValues() {
   const values = [
     {
       title: "Our Mission",
-      description: "To empower businesses and individuals with innovative solutions that drive growth and success.",
+      description: "To build AI-powered solutions that drive real-world impact through innovation and usability.",
       icon: Target,
       delay: 0,
     },
     {
       title: "Our Vision",
-      description: "To be the leading provider of transformative solutions that shape the future of our industry.",
+      description: "To become a trusted leader in ethical and practical AI, shaping a smarter, more efficient future.",
       icon: Lightbulb,
       delay: 0.2,
     },
     {
       title: "Our Values",
-      description: "Integrity, excellence, innovation, collaboration, and a deep commitment to customer satisfaction.",
+      description: "Innovation, integrity, transparency, and a user-first approach in everything we create.",
       icon: Heart,
       delay: 0.4,
     },
